@@ -30,8 +30,30 @@
   </body>
   <script>
     $(document).ready(function() {
-      setInterval()
-      $('.days').html('hhhhhh')
+      var today, endDate, timeLeft, endYear = 2016, endMonth = 8, endDay = 10, endHour = 14, endMinute = 0, hours, minutes;
+      today = new Date();
+      endDate = new Date(endYear, endMonth, endDay, endHour, endMinute);
+      timeLeft = endDate > today ? (endDate - today) : console.error('Wrong Date');
+      var millisecondsInADay = 1000 * 60 * 60 * 24;
+      var millisecondsInAnHour = 1000 * 60 * 60;
+      var millisecondsInAMinute = 1000 * 60;
+      var daysLeft = getDaysLeft(timeLeft);
+      var hoursLeft = getHoursLeft(timeLeft, daysLeft);
+      var minutesLeft = getMinutesLeft(timeLeft, daysLeft, hoursLeft);
+
+      console.log(daysLeft +'\n'+ hoursLeft + '\n' + minutesLeft);
+      function getDaysLeft(timeLeft) {
+        return Math.floor(timeLeft / millisecondsInADay);
+      }
+      function getHoursLeft(timeLeft, days){
+        hours = timeLeft - (days * millisecondsInADay);
+        return Math.floor(hours/ millisecondsInAnHour);
+      }
+      function getMinutesLeft(timeLeft, daysLeft, hoursLeft) {
+        minutes = timeLeft - (daysLeft * millisecondsInADay) - (hoursLeft * millisecondsInAnHour);
+        return Math.floor(minutes / millisecondsInAMinute);
+      }
+
     });
   </script>
 </html>
