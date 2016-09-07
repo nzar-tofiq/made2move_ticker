@@ -1,59 +1,32 @@
-<!DOCTYPE html>
+<!DOCTYPE>
 <html>
   <head>
-    <meta charset="utf-8">
-    <title>M2M Tick</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-    <style media="screen">
-      .counters {
-        margin: 0 auto;
-        height: 70px;
-        width: 70%;
-        background: blue;
-      }
-      .counter {
-        display: inline-block;
-        margin: 10px 5px;
-        height: 50px;
-        width: 100px;
-        background: orange;
-        float: left;
-      }
-    </style>
+    <title>jquery-countdown plugin test</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script src="js/jquery.countdown.js"></script>
+    <link href="css/media.css" rel="stylesheet" type="text/css" />
+    <script>
+      $(function(){
+        $(".digits").countdown({
+          image: "img/digits1.png",
+          stepTime: 70,
+          format: "dd:hh:mm:ss",
+          digitWidth: 40,
+          digitHeight: 90,
+          digits: 10,
+          endTime: new Date(2016, 8, 10, 14)
+        });
+      });
+    </script>
   </head>
   <body>
-    <div class="counters">
-      <div class="counter days"></div>
-      <div class="counter hours"></div>
-      <div class="counter minutes"></div>
+    <a href="https://github.com/Reflejo/jquery-countdown"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub"></a>
+    <div class="wrapper">
+      <div class="cell">
+        <div id="holder">
+          <div class="digits"></div>
+        </div>
+      </div>
     </div>
   </body>
-  <script>
-    $(document).ready(function() {
-      var today, endDate, timeLeft, endYear = 2016, endMonth = 8, endDay = 10, endHour = 14, endMinute = 0, hours, minutes;
-      today = new Date();
-      endDate = new Date(endYear, endMonth, endDay, endHour, endMinute);
-      timeLeft = endDate > today ? (endDate - today) : console.error('Wrong Date');
-      var millisecondsInADay = 1000 * 60 * 60 * 24;
-      var millisecondsInAnHour = 1000 * 60 * 60;
-      var millisecondsInAMinute = 1000 * 60;
-      var daysLeft = getDaysLeft(timeLeft);
-      var hoursLeft = getHoursLeft(timeLeft, daysLeft);
-      var minutesLeft = getMinutesLeft(timeLeft, daysLeft, hoursLeft);
-
-      console.log(daysLeft +'\n'+ hoursLeft + '\n' + minutesLeft);
-      function getDaysLeft(timeLeft) {
-        return Math.floor(timeLeft / millisecondsInADay);
-      }
-      function getHoursLeft(timeLeft, days){
-        hours = timeLeft - (days * millisecondsInADay);
-        return Math.floor(hours/ millisecondsInAnHour);
-      }
-      function getMinutesLeft(timeLeft, daysLeft, hoursLeft) {
-        minutes = timeLeft - (daysLeft * millisecondsInADay) - (hoursLeft * millisecondsInAnHour);
-        return Math.floor(minutes / millisecondsInAMinute);
-      }
-
-    });
-  </script>
 </html>

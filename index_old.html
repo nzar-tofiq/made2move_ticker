@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>M2M Tick</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <style media="screen">
+      .counters {
+        margin: 0 auto;
+        height: 70px;
+        width: 70%;
+        background: blue;
+      }
+      .counter {
+        display: inline-block;
+        margin: 10px 5px;
+        height: 50px;
+        width: 100px;
+        background: orange;
+        float: left;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="counters">
+      <div class="counter days"></div>
+      <div class="counter hours"></div>
+      <div class="counter minutes"></div>
+    </div>
+  </body>
+  <script>
+    $(document).ready(function() {
+      var today, endDate, timeLeft, endYear = 2016, endMonth = 8, endDay = 10, endHour = 14, endMinute = 0, hours, minutes;
+      today = new Date();
+      endDate = new Date(endYear, endMonth, endDay, endHour, endMinute);
+      timeLeft = endDate > today ? (endDate - today) : console.error('Wrong Date');
+      var millisecondsInADay = 1000 * 60 * 60 * 24;
+      var millisecondsInAnHour = 1000 * 60 * 60;
+      var millisecondsInAMinute = 1000 * 60;
+      var daysLeft = getDaysLeft(timeLeft);
+      var hoursLeft = getHoursLeft(timeLeft, daysLeft);
+      var minutesLeft = getMinutesLeft(timeLeft, daysLeft, hoursLeft);
+
+      console.log(daysLeft +'\n'+ hoursLeft + '\n' + minutesLeft);
+      function getDaysLeft(timeLeft) {
+        return Math.floor(timeLeft / millisecondsInADay);
+      }
+      function getHoursLeft(timeLeft, days){
+        hours = timeLeft - (days * millisecondsInADay);
+        return Math.floor(hours/ millisecondsInAnHour);
+      }
+      function getMinutesLeft(timeLeft, daysLeft, hoursLeft) {
+        minutes = timeLeft - (daysLeft * millisecondsInADay) - (hoursLeft * millisecondsInAnHour);
+        return Math.floor(minutes / millisecondsInAMinute);
+      }
+
+    });
+  </script>
+</html>
