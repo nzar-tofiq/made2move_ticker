@@ -7,172 +7,155 @@
     <title>Ticker</title>
   </head>
   <body>
-    <div id="m2m_countdown1">
-      <div id="countdown" class="countdownHolder">
-      	<!-- <span class="countDays">
-      		<span class="position">
-      			<span class="digit static"></span>
-      		</span>
-      	</span> -->
-    </div>
+    <div id="m2m_countdown1" class="countdownHolder">
+    <div id="m2m_countdown2" class="countdownHolder">
+    <div id="m2m_countdown3" class="countdownHolder">
+    <div id="m2m_countdown4" class="countdownHolder">
+    <script>
+    (function($){
+    	// Number of seconds in every time division
+    	var days	= 24*60*60, hours	= 60*60, minutes	= 60;
+    	// Creating the plugin
+    	$.fn.countdown = function(prop){
+
+    		var options = $.extend({
+    			callback	: function(){},
+    			timestamp	: 0
+    		},prop);
+
+    		var left, d, h, m, s, positions;
+
+    		// Initialize the plugin
+    		countdownInit(this, options);
+
+    		positions = this.find('.position');
+
+    		(function tick(){
+
+    			// Time left
+    			left = Math.floor((options.timestamp - (new Date())) / 1000);
+
+    			if(left < 0){
+    				left = 0;
+    			}
+
+    			// Number of days left
+    			d = Math.floor(left / days);
+    			updateDuo(0, 1, d);
+    			left -= d*days;
+
+    			// Number of hours left
+    			h = Math.floor(left / hours);
+    			updateDuo(2, 3, h);
+    			left -= h*hours;
+
+    			// Number of minutes left
+    			m = Math.floor(left / minutes);
+    			updateDuo(4, 5, m);
+    			left -= m*minutes;
+
+    			// Number of seconds left
+    			s = left;
+    			updateDuo(6, 7, s);
+
+    			// Calling an optional user supplied callback
+    			options.callback(d, h, m, s);
+
+    			// Scheduling another call of this function in 1s
+    			setTimeout(tick, 1000);
+    		})();
+
+    		// This function updates two digit positions at once
+    		function updateDuo(minor,major,value){
+    			switchDigit(positions.eq(minor),Math.floor(value/10)%10);
+    			switchDigit(positions.eq(major),value%10);
+    		}
+
+    		return this;
+    	};
+
+    	/* The two helper functions go here */
+      function countdownInit(elem, options){
+        elem.addClass('countdownHolder');
+        // Creating the markup inside the container
+        $.each(['Days','Hours','Minutes', 'Seconds'],function(i){
+          $('<div class="count count'+this+'">').html(
+              '<div class="digit_container">\
+                <span class="position">\
+                  <span class="digit static"></span>\
+                </span>\
+                <span class="position">\
+                  <span class="digit static"></span>\
+                </span>\
+              </div>\
+              <div class="desc">'+this+'</div>'
+            ).appendTo(elem);
+          });
+        }
+
+        // Creates an animated transition between the two numbers
+      function switchDigit(position,number){
+
+        var digit = position.find('.digit')
+
+        if(digit.is(':animated')){
+          return false;
+        }
+
+        if(position.data('digit') == number){
+          // We are already showing this number
+          return false;
+        }
+
+        position.data('digit', number);
+
+        //top is the distance between the new digit and the position element
+        var replacement = $('<div>',{
+          'class':'digit',
+          css: {
+            top: '60px',
+            opacity: 1
+          },
+          html: number
+        });
+
+        //top here is the distance by which the new digit slides up from the bottom
+        digit
+          .before(replacement)
+          .removeClass('static')
+          .animate({top:'-100px',opacity:1},1500,function(){
+            digit.remove();
+          });
+
+        //top here is the distance by which the new digit slides up to the top
+        // The .static class is added when the animation
+        // completes. This makes it run smoother.
+        replacement
+          .animate({top:'-20px',opacity:1},1500, function(){
+            replacement.addClass('static');
+          });
+      }
+    })(jQuery);
+
+    $(function(){
+    	var ts1 = new Date(2016, 8, 9, 16);
+      var ts2 = new Date(2016, 8, 10, 16);
+      var ts3 = new Date(2016, 8, 11, 16);
+      var ts4 = new Date(2016, 8, 12, 16);
+
+    	$('#m2m_countdown1').countdown({
+    		timestamp	: ts1
+    	})
+      $('#m2m_countdown2').countdown({
+    		timestamp	: ts2
+    	})
+      $('#m2m_countdown3').countdown({
+    		timestamp	: ts3
+    	})
+      $('#m2m_countdown4').countdown({
+    		timestamp	: ts4
+    	})
+    });
+    </script>
   </body>
-  <script>
-  // time = new Date();
-  // setTimeout( updateTimer, time.getUTCMilliseconds() );
-  // function updateTimer(){
-  //   var div = document.getElementById('m2m_countdown1')
-  //   today = new Date();
-  //   endDate = new Date(2016, 8, 8, 14);
-  //   console.log(endDate);
-  //   remainingTime = new Date(endDate - today);
-  //   div.innerHTML = 'Days: ' + Math.floor(remainingTime/(24*60*60*1000)) + '<br/>Hours: ' + remainingTime.getUTCHours() + '<br/>Minutes: ' + remainingTime.getUTCMinutes() + '<br/>Seconds: ' + remainingTime.getUTCSeconds();
-  // }
-
-  (function($){
-  	// Number of seconds in every time division
-  	var days	= 24*60*60, hours	= 60*60, minutes	= 60;
-
-  	// Creating the plugin
-  	$.fn.countdown = function(prop){
-
-  		var options = $.extend({
-  			callback	: function(){},
-  			timestamp	: 0
-  		},prop);
-
-  		var left, d, h, m, s, positions;
-
-  		// Initialize the plugin
-  		init(this, options);
-
-  		positions = this.find('.position');
-
-  		(function tick(){
-
-  			// Time left
-  			left = Math.floor((options.timestamp - (new Date())) / 1000);
-
-  			if(left < 0){
-  				left = 0;
-  			}
-
-  			// Number of days left
-  			d = Math.floor(left / days);
-  			updateDuo(0, 1, d);
-  			left -= d*days;
-
-  			// Number of hours left
-  			h = Math.floor(left / hours);
-  			updateDuo(2, 3, h);
-  			left -= h*hours;
-
-  			// Number of minutes left
-  			m = Math.floor(left / minutes);
-  			updateDuo(4, 5, m);
-  			left -= m*minutes;
-
-  			// Number of seconds left
-  			s = left;
-  			updateDuo(6, 7, s);
-
-  			// Calling an optional user supplied callback
-  			options.callback(d, h, m, s);
-
-  			// Scheduling another call of this function in 1s
-  			setTimeout(tick, 1000);
-  		})();
-
-  		// This function updates two digit positions at once
-  		function updateDuo(minor,major,value){
-  			switchDigit(positions.eq(minor),Math.floor(value/10)%10);
-  			switchDigit(positions.eq(major),value%10);
-  		}
-
-  		return this;
-  	};
-
-  	/* The two helper functions go here */
-    function init(elem, options){
-      elem.addClass('countdownHolder');
-      // Creating the markup inside the container
-      $.each(['Days','Hours','Minutes', 'Seconds'],function(i){
-        $('<div class="count count'+this+'">').html(
-            '<div class="digit_container">\
-              <span class="position">\
-                <span class="digit static"></span>\
-              </span>\
-              <span class="position">\
-                <span class="digit static"></span>\
-              </span>\
-            </div>\
-            <div class="desc">'+this+' Left</div>'
-          ).appendTo(elem);
-        });
-      }
-
-      // Creates an animated transition between the two numbers
-    function switchDigit(position,number){
-
-      var digit = position.find('.digit')
-
-      if(digit.is(':animated')){
-        return false;
-      }
-
-      if(position.data('digit') == number){
-        // We are already showing this number
-        return false;
-      }
-
-      position.data('digit', number);
-
-      var replacement = $('<div>',{
-        'class':'digit',
-        css: {
-          top: '2.1em',
-          opacity: 1
-        },
-        html: number
-      });
-
-      // The .static class is added when the animation
-      // completes. This makes it run smoother.
-
-      digit
-        .before(replacement)
-        .removeClass('static')
-        .animate({top:'-2.5em',opacity:1},'slow',function(){
-          digit.remove();
-        })
-
-      replacement
-        .animate({top:0,opacity:1},'slow',function(){
-          replacement.addClass('static');
-        });
-    }
-  })(jQuery);
-
-  $(function(){
-
-  	var note = $('#note'),
-  		ts = new Date(2016, 8, 07, 16, 53),
-  		newYear = true;
-
-  	if((new Date()) > ts){
-  		// The new year is here! Count towards something else.
-  		// Notice the *1000 at the end - time must be in milliseconds
-  		ts = (new Date()).getTime() + 10*24*60*60*1000;
-  		newYear = false;
-  	}
-
-  	$('#countdown').countdown({
-  		timestamp	: ts,
-  		callback	: function(days, hours, minutes, seconds){
-
-  			note.html();
-  		}
-  	});
-
-  });
-  </script>
 </html>

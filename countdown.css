@@ -1,37 +1,57 @@
-#countdown{
-	font: 5em #FFF;
+#m2m_countdown4{
+	display: none;
+}
+#m2m_countdown3{
+	display: none;
+}
+#m2m_countdown2{
+	display: none;
+}
+.countdownHolder{
+	font-family: monospace, "Lucida Console", Monaco;
+	color: #FFF;
 	margin:0 auto;
 	text-align: right;
-  font-size: 2em;
+  font-size: 100px;
 }
+.digitbox {
+	height:80px;
+	padding:10px;
 
+}
 .count {
-	font-size: 100px;
+	text-transform: uppercase;
+	font-weight: 400;
+	font-size: 110px;
 	background: #EA6E01;
-	display:inline-block;
-	position:relative;
+	display: inline-block;
+	position: relative;
 	overflow: hidden;
+	width: 15%;
 	margin: 0 20px;
+	text-align: center;
 	padding: 24px;
 }
 
 .position {
 	display: inline-block;
-	height: 30px;
-	width: 30px;
+	height: 84px;
+	width: 60px;
+	overflow:hidden;
+	position:relative;
+	margin: 0 -34px;
 }
 
 .digit {
 	position: absolute;
-	margin: 5px 0 0 -11px;
 	color:#fff;
 }
 
 .desc{
 	color: #FFF;
-	font-size: .25em;
+	font-size: 30px;
 	background: #EA6E01;
-	z-index: 200;
+	font-weight: 200;
 }
 
 
@@ -40,10 +60,13 @@
  * of the countdown that you don't need.
  */
 
-.countDays{ margin-left: auto; }
+.countDays{
+	/*display: none;*/
+	margin-left: auto;
+}
 .countDiv0{}
 .countHours{}
 .countDiv1{}
 .countMinutes{}
 .countDiv2{}
-.countSeconds{ margin-right: auto; }
+.countSeconds{ display: none}
