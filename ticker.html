@@ -96,13 +96,16 @@
       elem.addClass('countdownHolder');
       // Creating the markup inside the container
       $.each(['Days','Hours','Minutes', 'Seconds'],function(i){
-        $('<span class="count count'+this+'">').html(
-            '<span class="position">\
-              <span class="digit static"></span>\
-            </span>\
-            <span class="position">\
-              <span class="digit static">0</span>\
-            </span>'
+        $('<div class="count count'+this+'">').html(
+            '<div class="digit_container">\
+              <span class="position">\
+                <span class="digit static"></span>\
+              </span>\
+              <span class="position">\
+                <span class="digit static"></span>\
+              </span>\
+            </div>\
+            <div class="desc">'+this+' Left</div>'
           ).appendTo(elem);
         });
       }
@@ -138,7 +141,7 @@
       digit
         .before(replacement)
         .removeClass('static')
-        .animate({top:'2.5em',opacity:1},'slow',function(){
+        .animate({top:'-2.5em',opacity:1},'slow',function(){
           digit.remove();
         })
 
