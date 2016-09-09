@@ -9,7 +9,7 @@
   </head>
   <body>
     <!-- date format  ="mm/dd/yyyy hh:mm:ss" or ="yyyy-mm-dd hh:mm:ss" -->
-    <div data-count-down="1" data-count-down-date="2016-9-9 12:26:00"></div>
+    <div data-count-down="1" data-count-down-date="2016-9-10 15:43:00"></div>
     <div id="m2m_countdown" class="countdownHolder">
     <script>
       $(function(){
@@ -22,10 +22,11 @@
             $('#m2m_countdown').countdown({
           		timestamp	: endDate,
               callback  : function(d, h, m, s){
-                // Adds up all the digits of time at evry tick because we're only interested in if they are all 0 or not
+                // Adds up all the digits of time at every tick because we're only interested in "if they are all 0 or not"
                 var sumOfAllDigits = d + h + m + s;
                 if (sumOfAllDigits <= 0) {
                   this.stopTicking = true;
+                  window.scroll(0,0);
                   location.reload();
                 }
               }

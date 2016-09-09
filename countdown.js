@@ -51,6 +51,7 @@
       options.callback(d, h, m, s);
 
       // Scheduling another call of this function in 1s
+      // Keeps ticking untill the user sets stopTicking to true
       if (!options.stopTicking) {
         setTimeout(tick, 1000);
       }
@@ -100,7 +101,7 @@
 
     position.data('digit', number);
 
-    //top is the distance between the new digit and the position element
+    // Top is the distance between the new digit and the position element
     var replacement = $('<div>',{
       'class':'digit',
       css: {
@@ -110,7 +111,7 @@
       html: number
     });
 
-    //top here is the distance by which the new digit slides up from the bottom
+    // Top here is the distance by which the new digit slides up from the bottom
     digit
       .before(replacement)
       .removeClass('static')
@@ -118,7 +119,7 @@
         digit.remove();
       });
 
-    //top here is the distance by which the new digit slides up to the top
+    // Top here is the distance by which the new digit slides up to the top
     // The .static class is added when the animation
     // completes. This makes it run smoother.
     replacement
