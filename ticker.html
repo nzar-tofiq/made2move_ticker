@@ -8,30 +8,43 @@
     <title>Ticker</title>
   </head>
   <body>
-    <!-- date format  ="mm/dd/yyyy hh:mm:ss" or ="yyyy-mm-dd hh:mm:ss" -->
-    <div data-count-down="1" data-count-down-date="2016-9-10 15:43:00"></div>
-    <div id="m2m_countdown" class="countdownHolder">
+    <!-- date format should be  ="dd/mm/yyyy hh:mm:ss" or ="yyyy-mm-dd hh:mm:ss" -->
+    <div data-count-down="1" class="countdownHolder" data-count-down-to="10/09/2016 15:43:00"></div>
     <script>
       $(function(){
+
         var $trigger = $('[data-count-down]');
         if ( $trigger.length ) {
-          var datetime = $trigger.data('count-down-date');
-          // endDate is only added to make a js date object
-          var endDate = new Date(datetime);
-          if (new Date() < endDate) {
-            $('#m2m_countdown').countdown({
-          		timestamp	: endDate,
-              callback  : function(d, h, m, s){
-                // Adds up all the digits of time at every tick because we're only interested in "if they are all 0 or not"
-                var sumOfAllDigits = d + h + m + s;
-                if (sumOfAllDigits <= 0) {
-                  this.stopTicking = true;
-                  window.scroll(0,0);
-                  location.reload();
+          $trigger.each(function(){
+            var datetime = $(this).data('count-down-to');
+            // TO-Do Make datetime British format only when the datetime has slashes
+            if(datetime.indexOf('/') > 0) {
+              // We expect the user to input dd/mm
+              britishDatetimeArray = datetime.split('/');
+              // Gets the dd from user input
+              var dd = britishDatetimeArray.splice(0, 1);
+              var mm = britishDatetimeArray.splice(0, 1);
+              // datetime converted to the mm/dd format so javascript gets the right datetime
+              datetime = [mm, dd, britishDatetimeArray].join('/');
+            }
+
+            // endDate is only added to make a js date object
+            var endDate = new Date(datetime);
+            if (new Date() < endDate) {
+              $(this).countdown({
+                timestamp	: endDate,
+                callback  : function(d, h, m, s){
+                  // Adds up all the digits of time at every tick because we're only interested in "if they are all 0 or not"
+                  var sumOfAllDigits = d + h + m + s;
+                  if (sumOfAllDigits <= 0) {
+                    this.stopTicking = true;
+                    window.scroll(0,0);
+                    location.reload();
+                  }
                 }
-              }
-          	})
-          }
+              });
+            }
+          });
         }
       });
     </script>
