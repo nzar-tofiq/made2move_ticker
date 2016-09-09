@@ -9,14 +9,14 @@
   </head>
   <body>
     <!-- date format  ="mm/dd/yyyy hh:mm:ss" or ="yyyy-mm-dd hh:mm:ss" -->
-    <div data-count-down="1" data-count-down-date="2016-9-9 12:12:00"></div>
+    <div data-count-down="1" data-count-down-date="2016-9-9 12:26:00"></div>
     <div id="m2m_countdown" class="countdownHolder">
     <script>
       $(function(){
         var $trigger = $('[data-count-down]');
         if ( $trigger.length ) {
           var datetime = $trigger.data('count-down-date');
-          //console.log( datetime );
+          // endDate is only added to make a js date object
           var endDate = new Date(datetime);
           if (new Date() < endDate) {
             $('#m2m_countdown').countdown({

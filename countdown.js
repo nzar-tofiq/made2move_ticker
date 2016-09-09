@@ -51,8 +51,9 @@
       options.callback(d, h, m, s);
 
       // Scheduling another call of this function in 1s
-      if (!options.stopTicking)
+      if (!options.stopTicking) {
         setTimeout(tick, 1000);
+      }
     })();
 
     // This function updates two digit positions at once
@@ -121,7 +122,7 @@
     // The .static class is added when the animation
     // completes. This makes it run smoother.
     replacement
-      .animate({top:'20px',opacity:1},1500, function(){
+      .animate({top:'-20px',opacity:1},1500, function(){
         replacement.addClass('static');
       });
   }
