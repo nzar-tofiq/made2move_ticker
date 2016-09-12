@@ -9,7 +9,7 @@
   </head>
   <body>
     <!-- date format should be  ="dd/mm/yyyy hh:mm:ss" or ="yyyy-mm-dd hh:mm:ss" -->
-    <div data-count-down="1" class="countdownHolder" data-count-down-to="10/09/2016 15:43:00"></div>
+    <div data-count-down="1" class="countdownHolder" data-count-down-to="22/09/2016 15:43:00"></div>
     <script>
       $(function(){
 
@@ -17,16 +17,21 @@
         if ( $trigger.length ) {
           $trigger.each(function(){
             var datetime = $(this).data('count-down-to');
-            // TO-Do Make datetime British format only when the datetime has slashes
-            if(datetime.indexOf('/') > 0) {
-              // We expect the user to input dd/mm
-              britishDatetimeArray = datetime.split('/');
-              // Gets the dd from user input
-              var dd = britishDatetimeArray.splice(0, 1);
-              var mm = britishDatetimeArray.splice(0, 1);
-              // datetime converted to the mm/dd format so javascript gets the right datetime
-              datetime = [mm, dd, britishDatetimeArray].join('/');
+            // Makes datetime British format only when the datetime has slashes
+
+            function localiseDatetimeInput(datetime) {
+              if(datetime.indexOf('/') > -1) {
+                // We expect the user to input dd/mm
+                var datetimeArray = datetime.split('/');
+                // Gets the dd and mm from user input
+                var dd = datetimeArray.splice(0, 1);
+                var mm = datetimeArray.splice(0, 1);
+                // datetime converted to the mm/dd format so javascript gets the right datetime
+                return [mm, dd, datetimeArray].join('/');
+              }
             }
+
+            datetime = localiseDatetimeInput(datetime);
 
             // endDate is only added to make a js date object
             var endDate = new Date(datetime);

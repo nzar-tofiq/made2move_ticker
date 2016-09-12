@@ -1,6 +1,3 @@
-div[data-count-down]{
-display: hidden;
-}
 .countdownHolder {
 	font-family:monospace, Monaco, "Lucida Console";
 	color:#FFF;

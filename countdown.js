@@ -1,18 +1,15 @@
 (function($){
   // Number of seconds in every time division
-  var days	= 24*60*60, hours	= 60*60, minutes	= 60;
+  var days	= 24 * 60 * 60, hours	= 60 * 60, minutes	= 60, left, d, h, m, s, positions;
   // Creating the plugin
   $.fn.countdown = function(prop){
 
     var options = $.extend({
-      callback	: function(){
-
+        callback	: function(){
       },
       timestamp	: 0,
       stopTicking: false
     },prop);
-
-    var left, d, h, m, s, positions;
 
     // Initialize the plugin
     countdownInit(this, options);
@@ -31,17 +28,17 @@
       // Number of days left
       d = Math.floor(left / days);
       updateDuo(0, 1, d);
-      left -= d*days;
+      left -= d * days;
 
       // Number of hours left
       h = Math.floor(left / hours);
       updateDuo(2, 3, h);
-      left -= h*hours;
+      left -= h * hours;
 
       // Number of minutes left
       m = Math.floor(left / minutes);
       updateDuo(4, 5, m);
-      left -= m*minutes;
+      left -= m * minutes;
 
       // Number of seconds left
       s = left;
@@ -62,7 +59,6 @@
       switchDigit(positions.eq(minor),Math.floor(value/10)%10);
       switchDigit(positions.eq(major),value%10);
     }
-
     return this;
   };
 
@@ -115,15 +111,14 @@
     digit
       .before(replacement)
       .removeClass('static')
-      .animate({top:'-100px',opacity:1},1500,function(){
+      .animate({top:'-100px',opacity:1},'slow',function(){
         digit.remove();
       });
 
     // Top here is the distance by which the new digit slides up to the top
-    // The .static class is added when the animation
-    // completes. This makes it run smoother.
+    // The .static class is added when the animation completes. This makes it run smoother.
     replacement
-      .animate({top:'-20px',opacity:1},1500, function(){
+      .animate({top:'-20px',opacity:1},'slow', function(){
         replacement.addClass('static');
       });
   }
