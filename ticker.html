@@ -1,56 +1,65 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <link rel="stylesheet" href="countdown.css">
-    <script src="jquery.js"></script>
-    <script src="countdown.js"></script>
-    <title>Ticker</title>
-  </head>
-  <body>
-    <!-- date format should be  ="dd/mm/yyyy hh:mm:ss" or ="yyyy-mm-dd hh:mm:ss" -->
-    <div data-count-down="1" class="countdownHolder" data-count-down-to="22/09/2016 15:43:00"></div>
-    <script>
-      $(function(){
-        var $trigger = $('[data-count-down]'), datetime, datetimeArray, dd, mm, endDate;
-        if ( $trigger.length ) {
-          $trigger.each(function(){
-            datetime = $(this).data('count-down-to');
 
-            // Makes datetime British format only when the datetime has slashes
-            function localiseDatetimeInput(datetime) {
-              // We expect the user to input dd/mm
-              datetimeArray = datetime.split('/');
-              // Gets the dd and mm from user input
-              dd = datetimeArray.shift();
-              mm = datetimeArray.shift();
-              // datetime converted to the mm/dd format so javascript gets the right datetime
-              return [mm, dd, datetimeArray].join('/');
-            }
+	<head>
+		<meta charset="utf-8">
+		<link rel="stylesheet" href="countdown.css">
+		<script src="jquery.js"></script>
+		<script src="countdown.js"></script>
+		<title>Ticker</title>
+	</head>
 
-            if ( datetime.indexOf('/') > -1) {
-              datetime = localiseDatetimeInput(datetime);
-            }
+	<body>
+		<!-- date format should be  ="dd/mm/yyyy hh:mm:ss" or ="yyyy-mm-dd hh:mm:ss" -->
+		<div data-count-down="1" class="countdownHolder" data-count-down-to="2016-22 15:43:00"></div>
+		<script>
+			$(function() {
+				var $trigger = $('[data-count-down]'),
+					datetime, datetimeArray, dd, mm, endDate;
+				if ($trigger.length) {
+					$trigger.each(function() {
+						datetime = $(this).data('count-down-to');
 
-            // endDate is only added to make a js date object
-            endDate = new Date(datetime);
-            if (new Date() < endDate) {
-              $(this).countdown({
-                timestamp	: endDate,
-                callback  : function(d, h, m, s){
-                  // Adds up all the digits of time at every tick, but we're only interested in "if they are all 0 or not"
-                  var sumOfAllDigits = d + h + m + s;
-                  if (sumOfAllDigits <= 0) {
-                    this.stopTicking = true;
-                    window.scroll(0,0);
-                    location.reload();
-                  }
-                }
-              });
-            }
-          });
-        }
-      });
-    </script>
-  </body>
+						if (isNaN(Date.parse(datetime))) {
+							console.error('\"' + datetime + '\"' + ' is not a valid date format')
+						}
+
+						// Makes datetime British format only when the datetime has slashes
+						function localiseDatetimeInput(datetime) {
+							// We expect the user to input dd/mm
+							datetimeArray = datetime.split('/');
+							// Gets the dd and mm from user input
+							dd = datetimeArray.shift();
+							mm = datetimeArray.shift();
+							// datetime converted to the mm/dd format so javascript gets the right datetime
+							return [mm, dd, datetimeArray].join('/');
+						}
+
+						if (datetime.indexOf('/') > -1) {
+							datetime = localiseDatetimeInput(datetime);
+						}
+
+						// endDate is only added to make a js date object
+
+						endDate = new Date(datetime);
+						if (new Date() < endDate) {
+							$(this).countdown({
+								timestamp: endDate,
+								callback: function(d, h, m, s) {
+									// Adds up all the digits of time at every tick, but we're only interested in "if they are all 0 or not"
+									var sumOfAllDigits = d + h + m + s;
+									if (sumOfAllDigits <= 0) {
+										this.stopTicking = true;
+										window.scroll(0, 0);
+										location.reload();
+									}
+								}
+							});
+						}
+					});
+				}
+			});
+		</script>
+	</body>
+
 </html>
