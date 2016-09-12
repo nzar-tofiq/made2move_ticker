@@ -11,7 +11,7 @@
 
 	<body>
 		<!-- date format should be  ="dd/mm/yyyy hh:mm:ss" or ="yyyy-mm-dd hh:mm:ss" -->
-		<div data-count-down="1" class="countdownHolder" data-count-down-to="2016-22 15:43:00"></div>
+		<div data-count-down="1" class="countdownHolder" data-count-down-to="2016-09-22 15:43:00"></div>
 		<script>
 			$(function() {
 				var $trigger = $('[data-count-down]'),
@@ -20,6 +20,7 @@
 					$trigger.each(function() {
 						datetime = $(this).data('count-down-to');
 
+						// Validate date input
 						if (isNaN(Date.parse(datetime))) {
 							console.error('\"' + datetime + '\"' + ' is not a valid date format')
 						}
