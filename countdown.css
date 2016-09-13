@@ -41,19 +41,9 @@
 }
 
 .countDays {
-    /*display: none;*/
     margin-left: auto;
 }
 
-.countDiv0 {}
-
-.countHours {}
-
-.countDiv1 {}
-
-.countMinutes {}
-
-.countDiv2 {}
-
-
-/*.countSeconds{ display: none}*/
+.countSeconds {
+    display: none
+}
