@@ -1,13 +1,13 @@
-(function ($) {
+(function($) {
 	// Number of seconds in every time division
 	var days = 24 * 60 * 60,
 		hours = 60 * 60,
 		minutes = 60,
 		left, d, h, m, s, positions;
 	// Creating the plugin
-	$.fn.countdown = function (prop) {
+	$.fn.countdown = function(prop) {
 		var options = $.extend({
-			callback: function () {},
+			callback: function() {},
 			timestamp: 0,
 			stopTicking: false
 		}, prop);
@@ -17,7 +17,7 @@
 		(function tick() {
 			// Time left
 			left = Math.floor((options.timestamp - (new Date())) / 1000);
-			if (left < 0) {
+			if(left < 0) {
 				left = 0;
 			}
 			// Number of days left
@@ -39,7 +39,7 @@
 			options.callback(d, h, m, s);
 			// Scheduling another call of this function in 1s
 			// Keeps ticking untill the user sets stopTicking to true
-			if (!options.stopTicking) {
+			if(!options.stopTicking) {
 				setTimeout(tick, 1000);
 			}
 		})();
@@ -54,7 +54,7 @@
 	function countdownInit(elem, options) {
 		elem.addClass('countdownHolder');
 		// Creating the markup inside the container
-		$.each(['Days', 'Hours', 'Minutes', 'Seconds'], function (i) {
+		$.each(['Days', 'Hours', 'Minutes', 'Seconds'], function(i) {
 			$('<div class="count count' + this + '">').html('<div class="digit_container">\
             <span class="position">\
               <span class="digit static"></span>\
@@ -68,38 +68,40 @@
 	}
 	// Creates an animated transition between the two numbers
 	function switchDigit(position, number) {
-		var digit = position.find('.digit')
-		if (digit.is(':animated')) {
+		var top_offset = -20; // static position should be this number of px from top of digit window	    
+		var move_distance = 80; // number of px to move moving digits up by
+		var digit = position.find('.digit');
+		if(digit.is(':animated')) {
 			return false;
 		}
-		if (position.data('digit') == number) {
+		if(position.data('digit') == number) {
 			// We are already showing this number
 			return false;
 		}
 		position.data('digit', number);
 		// Top is the distance between the new digit and the position element
-		var replacement = $('<div>', {
+		var replacement = $('<div>', {      
 			'class': 'digit',
-			css: {
-				top: '60px',
-				opacity: 1
+			      css: {        
+				top: top_offset + move_distance + 'px',
+				        opacity: 1      
 			},
-			html: number
-		});
-		// Top here is the distance by which the new digit slides up from the bottom
-		digit.before(replacement).removeClass('static').animate({
-			top: '-100px',
-			opacity: 1
-		}, 'slow', function () {
-			digit.remove();
-		});
-		// Top here is the distance by which the new digit slides up to the top
-		// The .static class is added when the animation completes. This makes it run smoother.
-		replacement.animate({
-			top: '-20px',
-			opacity: 1
-		}, 'slow', function () {
-			replacement.addClass('static');
+			  html: number    
+		});    
+		// Top here is the distance by which the new digit slides up from the bottom    
+		digit.before(replacement).removeClass('static').animate({      
+			top: top_offset - move_distance + 'px',
+			      opacity: 1    
+		}, 'slow', function() {      
+			digit.remove();    
+		});     // Top here is the distance by which the new digit slides up to the top
+		     // The .static class is added when the animation completes. This makes it run smoother.
+		    
+		replacement.animate({      
+			top: top_offset + 'px',
+			      opacity: 1    
+		}, 'slow', function() {      
+			replacement.addClass('static');    
 		});
 	}
 })(jQuery);

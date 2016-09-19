@@ -1,49 +1,49 @@
 .countdownHolder {
-    font-family: monospace, Monaco, "Lucida Console";
-    color: #FFF;
-    margin: 0 auto;
-    text-align: right;
+  font-family: monospace, Monaco, "Lucida Console";
+  color: #FFF;
+  margin: 0 auto;
+  text-align: right;
 }
 
 .count {
-    text-transform: uppercase;
-    font-weight: 400;
-    font-size: 110px;
-    background: #EA6E01;
-    display: inline-block;
-    position: relative;
-    overflow: hidden;
-    width: 15%;
-    margin: 0 20px;
-    text-align: center;
-    padding: 24px;
+  text-transform: uppercase;
+  font-weight: 400;
+  font-size: 110px;
+  background: #EA6E01;
+  display: inline-block;
+  position: relative;
+  overflow: hidden;
+  width: 15%;
+  margin: 0 20px;
+  text-align: center;
+  padding: 24px;
 }
 
 .position {
-    display: inline-block;
-    height: 84px;
-    width: 60px;
-    overflow: hidden;
-    position: relative;
-    margin: 0 -34px;
+  display: inline-block;
+  height: 84px;
+  width: 60px;
+  overflow: hidden;
+  position: relative;
+  margin: 0 -34px;
 }
 
 .digit {
-    position: absolute;
-    color: #fff;
+  position: absolute;
+  color: #fff;
 }
 
 .desc {
-    color: #FFF;
-    font-size: 30px;
-    background: #EA6E01;
-    font-weight: 200;
+  color: #FFF;
+  font-size: 30px;
+  background: #EA6E01;
+  font-weight: 200;
 }
 
 .countDays {
-    margin-left: auto;
+  margin-left: auto;
 }
 
 .countSeconds {
-    display: none
+  /*display: none;*/
 }
